@@ -5,9 +5,6 @@ using UnityEngine.UI;
 public class GM : MonoBehaviour
 {
     #region Variables
-
-    Vector3 Paddle;
-
     [SerializeField]
     GameObject paddle;
 
@@ -47,7 +44,6 @@ public class GM : MonoBehaviour
     #endregion
     void Awake()
     {
-        Paddle = paddle.GetComponent<Transform>().localScale;
         if (instance == null)
             instance = this;
         else if (instance != this)
@@ -97,11 +93,14 @@ public class GM : MonoBehaviour
 
     public void Upgrade()
     {
+        //paddle.GetComponent<Paddle>().Resize(2f);
+        paddle.GetComponent<Paddle>().Grow();
         Debug.Log("Upgrade");
     }
 
     public void Downgrade()
     {
+        paddle.GetComponent<Paddle>().Shrink();
         Debug.Log("Downgrade");
     }
 
@@ -133,16 +132,5 @@ public class GM : MonoBehaviour
                 health.GetComponent<Image>().sprite = healthFull;
                 break;
         }       
-    }
-
-    IEnumerator Wait(float waitTime)
-    {
-        while (waitTime > 0)
-        {
-            waitTime -= 0.01f;
-            Paddle = Vector3.Lerp(/*new Vector3(25f, 2f, 5f)*/Paddle, new Vector3(100f, 2f, 5f), Time.deltaTime);
-            yield return new WaitForSeconds(0.01f);
-        }
-        yield return new WaitForSeconds(waitTime);
     }
 }

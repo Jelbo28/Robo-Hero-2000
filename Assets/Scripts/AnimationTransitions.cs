@@ -12,6 +12,9 @@ public class AnimationTransitions : MonoBehaviour
     GameObject thump;
 
     [SerializeField]
+    GameObject fade;
+
+    [SerializeField]
     AudioSource boop;
 
     [SerializeField]
@@ -46,12 +49,22 @@ public class AnimationTransitions : MonoBehaviour
         Application.Quit();
     }
 
-    public void Play()
+    public void StartButton()
     {
         start.Play();
         StartCoroutine(WaitForAudio(start));
         Debug.Log("Play");
-        //SceneManager.LoadScene("Level Name");
+        fade.SetActive(true);
+    }
+
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
+
+    public void PlayLevel()
+    {
+        SceneManager.LoadScene("Level");
     }
 
     public void ButtonGlow()
