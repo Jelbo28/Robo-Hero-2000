@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class AnimationTransitions : MonoBehaviour
 {
+    #region Variables
     [SerializeField]
     Animator exitAnimator;
 
@@ -18,8 +19,7 @@ public class AnimationTransitions : MonoBehaviour
 
     [SerializeField]
     AudioSource start;
-
-    float length = 0f;
+    #endregion
 
     public void Menu()
     {
