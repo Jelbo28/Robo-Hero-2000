@@ -6,6 +6,11 @@ public class Pickup : MonoBehaviour
 {
     #region Variables
 
+    [SerializeField]
+    float pointAddition;
+
+    [SerializeField]
+    int damageValue;
 
 
     #endregion
@@ -14,10 +19,25 @@ public class Pickup : MonoBehaviour
     {
         if (coll.gameObject.tag == "Player")
         {
-            switch (gameObject.tag)
+            switch (gameObject.name)
             {
                 case ("Part"):
                     GM.instance.PartGet();
+                    break;
+                case ("Health"):
+                    GM.instance.HealthGet();
+                    break;
+                case ("Damage"):
+                    GM.instance.Damage(damageValue);
+                    break;
+                case ("Point"):
+                    GM.instance.PointGet(pointAddition);
+                    break;
+                case ("Upgrade"):
+                    GM.instance.Upgrade();
+                    break;
+                case ("Downgrade"):
+                    GM.instance.Downgrade();
                     break;
                 default:
                     break;
