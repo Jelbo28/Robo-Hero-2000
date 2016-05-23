@@ -95,12 +95,16 @@ public class GM : MonoBehaviour
     {
         //paddle.GetComponent<Paddle>().Resize(2f);
         paddle.GetComponent<Paddle>().Grow();
+        scoreNumber = scoreNumber + 10;
+        score.text = "Score: " + scoreNumber;
         Debug.Log("Upgrade");
     }
 
     public void Downgrade()
     {
         paddle.GetComponent<Paddle>().Shrink();
+        scoreNumber = scoreNumber - 10;
+        score.text = "Score: " + scoreNumber;
         Debug.Log("Downgrade");
     }
 
