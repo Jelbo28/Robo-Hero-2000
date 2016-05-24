@@ -4,7 +4,6 @@ using System.Collections;
 public class Paddle : MonoBehaviour
 {
     #region Variables
-    Vector3 paddleLength;
 
     bool shrink = false;
     bool grow = false;
@@ -15,12 +14,6 @@ public class Paddle : MonoBehaviour
     float clampLength;
     private Vector3 playerPosition = new Vector3(0, -3f, 0);
     #endregion
-
-    void Awake()
-    {
-        //clampLength = Camera.main.ViewportToWorldPoint(transform.position);
-        paddleLength = transform.localScale;
-    }
 
     void Update()
     {

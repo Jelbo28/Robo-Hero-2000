@@ -6,6 +6,15 @@ public class GM : MonoBehaviour
 {
     #region Variables
     [SerializeField]
+    AudioSource win;
+
+    [SerializeField]
+    AudioSource dead;
+
+    [SerializeField]
+    AudioSource retry;
+
+    [SerializeField]
     GameObject paddle;
 
     [SerializeField]
@@ -113,8 +122,9 @@ public class GM : MonoBehaviour
     {
         if (partNumber >= totalParts)
         {
-            partNumber = 15;
+            partNumber = totalParts;
             parts.text = "Parts: " + partNumber + "/" + totalParts;
+            win.Play();
             Debug.Log("Win");
         }
     }
@@ -124,7 +134,7 @@ public class GM : MonoBehaviour
         switch (healthNumber)
         {
             case (0):
-                health.GetComponent<Image>().sprite = healthZed;
+                GameOver();
                 break;
             case (1):
                 health.GetComponent<Image>().sprite = healthOne;
@@ -136,5 +146,11 @@ public class GM : MonoBehaviour
                 health.GetComponent<Image>().sprite = healthFull;
                 break;
         }       
+    }
+
+    void GameOver()
+    {
+        health.GetComponent<Image>().sprite = healthZed;
+        dead.Play();
     }
 }
