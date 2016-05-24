@@ -19,7 +19,7 @@ public class Pickup : MonoBehaviour
     {
         if (coll.gameObject.tag == "Player")
         {
-            switch (gameObject.name)
+            switch (gameObject.tag)
             {
                 case ("Part"):
                     GM.instance.PartGet();

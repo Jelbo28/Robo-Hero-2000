@@ -9,11 +9,23 @@ public class Paddle : MonoBehaviour
     bool grow = false;
 
     [SerializeField]
+    GameObject robot;
+
+    [SerializeField]
+    float offset;
+
+    [SerializeField]
     float paddleSpeed;
+
     [SerializeField]
     float clampLength;
-    private Vector3 playerPosition = new Vector3(0, -3f, 0);
+    Vector3 playerPosition;
     #endregion
+
+    void Awake()
+    {
+        playerPosition = new Vector3(0f, offset, 0f);
+    }
 
     void Update()
     {
@@ -23,7 +35,7 @@ public class Paddle : MonoBehaviour
     void Move()
     {
         float xPosition = transform.position.x + (Input.GetAxis("Horizontal") * paddleSpeed);
-        playerPosition = new Vector3(Mathf.Clamp(xPosition, -clampLength, clampLength), -3f, 0f);
+        playerPosition = new Vector3(Mathf.Clamp(xPosition, -clampLength, clampLength), offset, 0f);
         transform.position = playerPosition;
     }
 
@@ -32,9 +44,11 @@ public class Paddle : MonoBehaviour
         if (shrink == true || grow == false)
         {
             clampLength = 8f;
+            robot.GetComponent<Paddle>().clampLength = 8f;
             if (grow == false)
             {
                 clampLength = 7f;
+                robot.GetComponent<Paddle>().clampLength = 7f;
             }
             iTween.ScaleTo(gameObject, iTween.Hash("scale", gameObject.transform.localScale + new Vector3(0.25f, 0f, 0f), "easetype", iTween.EaseType.easeInOutBack, "time", 1f));
             grow = true;
@@ -48,9 +62,11 @@ public class Paddle : MonoBehaviour
         if (shrink == false || grow == true)
         {
             clampLength = 8f;
+            robot.GetComponent<Paddle>().clampLength = 8f;
             if (grow == false)
             {
                 clampLength = 9f;
+                robot.GetComponent<Paddle>().clampLength = 9f;
             }
             iTween.ScaleTo(gameObject, iTween.Hash("scale", gameObject.transform.localScale - new Vector3(0.25f, 0f, 0f), "easetype", iTween.EaseType.easeInOutBack, "time", 1f));
             shrink = true;

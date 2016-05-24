@@ -11,6 +11,12 @@ public class PressSpace : MonoBehaviour
     [SerializeField]
     GameObject fade;
 
+    [SerializeField]
+    GameObject controls;
+
+    [SerializeField]
+    GameObject story;
+
     int timesPressed = 0;
     #endregion
     void Update ()
@@ -25,6 +31,8 @@ public class PressSpace : MonoBehaviour
             if (timesPressed < 1)
             {
                 timesPressed++;
+                story.SetActive(false);
+                controls.SetActive(true);
                 space.text = "Press Space To Play";
             }
         }

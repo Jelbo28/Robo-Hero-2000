@@ -6,6 +6,9 @@ public class GM : MonoBehaviour
 {
     #region Variables
     [SerializeField]
+    AudioSource damage;
+
+    [SerializeField]
     AudioSource win;
 
     [SerializeField]
@@ -134,16 +137,24 @@ public class GM : MonoBehaviour
         switch (healthNumber)
         {
             case (0):
+                damage.Play();
+                damage.pitch = 1.2f;
                 GameOver();
                 break;
             case (1):
                 health.GetComponent<Image>().sprite = healthOne;
+                damage.pitch =  0.9f;
+                damage.Play();
                 break;
             case (2):
                 health.GetComponent<Image>().sprite = healthTwo;
+                damage.pitch = 1.1f;
+                damage.Play();
                 break;
             case (3):
                 health.GetComponent<Image>().sprite = healthFull;
+                damage.pitch = 1f;
+                damage.Play();
                 break;
         }       
     }
