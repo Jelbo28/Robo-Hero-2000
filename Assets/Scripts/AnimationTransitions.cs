@@ -18,6 +18,12 @@ public class AnimationTransitions : MonoBehaviour
     AudioSource boop;
 
     [SerializeField]
+    AudioSource badFeeling;
+
+    [SerializeField]
+    AudioSource creation;
+
+    [SerializeField]
     AudioSource quit;
 
     [SerializeField]
@@ -69,14 +75,23 @@ public class AnimationTransitions : MonoBehaviour
 
     public void ButtonGlow()
     {
-        exitAnimator.SetBool("ButtonGlow", true);
-        
+        exitAnimator.SetBool("ButtonGlow", true); 
     }
 
 	public void ThumpEffect()
 	{
 		thump.GetComponentInChildren<ParticleSystem>().Play(true);
 	}
+
+    public void BadFeeling()
+    {
+        badFeeling.Play();
+    }
+
+    public void Creation()
+    {
+        creation.Play();
+    }
 
     IEnumerator WaitForAudio(AudioSource name)
     {

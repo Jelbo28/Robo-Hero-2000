@@ -15,6 +15,9 @@ public class GM : MonoBehaviour
     AudioSource dead;
 
     [SerializeField]
+    AudioSource partGet;
+
+    [SerializeField]
     AudioSource retry;
 
     [SerializeField]
@@ -52,6 +55,8 @@ public class GM : MonoBehaviour
     [SerializeField]
     int totalParts = 15;
 
+    float randomPitch;
+
     public static GM instance = null;
     #endregion
     void Awake()
@@ -64,6 +69,9 @@ public class GM : MonoBehaviour
 
     public void PartGet()
     {
+        randomPitch = Random.Range(0.8f, 1.2f);
+        partGet.pitch = randomPitch;
+        partGet.Play();
         partNumber++;
         parts.text = "Parts: " + partNumber + "/" + totalParts;
         CheckWin();
@@ -137,23 +145,23 @@ public class GM : MonoBehaviour
         switch (healthNumber)
         {
             case (0):
+                //damage.pitch = 1.2f;
                 damage.Play();
-                damage.pitch = 1.2f;
                 GameOver();
                 break;
             case (1):
                 health.GetComponent<Image>().sprite = healthOne;
-                damage.pitch =  0.9f;
+                //damage.pitch =  0.9f;
                 damage.Play();
                 break;
             case (2):
                 health.GetComponent<Image>().sprite = healthTwo;
-                damage.pitch = 1.1f;
+                //damage.pitch = 1.1f;
                 damage.Play();
                 break;
             case (3):
                 health.GetComponent<Image>().sprite = healthFull;
-                damage.pitch = 1f;
+                //damage.pitch = 1f;
                 damage.Play();
                 break;
         }       
