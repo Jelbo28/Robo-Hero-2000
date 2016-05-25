@@ -9,6 +9,9 @@ public class AnimationTransitions : MonoBehaviour
     Animator exitAnimator;
 
     [SerializeField]
+    Animator monsterAnimator;
+
+    [SerializeField]
     GameObject thump;
 
     [SerializeField]
@@ -22,6 +25,9 @@ public class AnimationTransitions : MonoBehaviour
 
     [SerializeField]
     AudioSource creation;
+
+    [SerializeField]
+    AudioSource monster;
 
     [SerializeField]
     AudioSource quit;
@@ -68,6 +74,11 @@ public class AnimationTransitions : MonoBehaviour
         SceneManager.LoadScene("HowToPlay");
     }
 
+    public void Cutscene()
+    {
+        SceneManager.LoadScene("IntroCutscene");
+    }
+
     public void PlayLevel()
     {
         SceneManager.LoadScene("Level");
@@ -91,6 +102,16 @@ public class AnimationTransitions : MonoBehaviour
     public void Creation()
     {
         creation.Play();
+    }
+
+    public void Monster()
+    {
+        monster.Play();
+    }
+
+    public void MonsterTime()
+    {
+        monsterAnimator.SetBool("MonsterTime", true);
     }
 
     IEnumerator WaitForAudio(AudioSource name)
