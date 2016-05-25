@@ -56,7 +56,7 @@ public class RobotRenderer : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = idle;
             hover.Stop();
         }
-        Debug.Log(Input.GetAxis("Horizontal"));
+        //Debug.Log(Input.GetAxis("Horizontal"));
         working = false;
     }
 }

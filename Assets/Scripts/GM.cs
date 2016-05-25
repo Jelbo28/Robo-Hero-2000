@@ -7,6 +7,18 @@ public class GM : MonoBehaviour
     #region Variables
 
     [SerializeField]
+    Text overParts;
+
+    [SerializeField]
+    Text overPoints;
+
+    [SerializeField]
+    GameObject gameover;
+
+    [SerializeField]
+    GameObject mainOverlay;
+
+    [SerializeField]
     GameObject shieldObject;
 
     [SerializeField]
@@ -16,13 +28,16 @@ public class GM : MonoBehaviour
     AudioSource damage;
 
     [SerializeField]
+    AudioSource upgrade;
+
+    [SerializeField]
+    AudioSource downgrade;
+
+    [SerializeField]
     AudioSource healthSound;
 
     [SerializeField]
     AudioSource win;
-
-    [SerializeField]
-    AudioSource dead;
 
     [SerializeField]
     AudioSource partGet;
@@ -132,11 +147,12 @@ public class GM : MonoBehaviour
 
     public void Upgrade()
     {
+        upgrade.Play();
         //paddle.GetComponent<Paddle>().Resize(2f);
         paddle.GetComponent<Paddle>().Grow();
         scoreNumber = scoreNumber + 10;
         score.text = "Score: " + scoreNumber;
-        Debug.Log("Upgrade");
+        //Debug.Log("Upgrade");
     }
 
     public void Shield()
@@ -147,10 +163,14 @@ public class GM : MonoBehaviour
 
     public void Downgrade()
     {
-        paddle.GetComponent<Paddle>().Shrink();
-        scoreNumber = scoreNumber - 10;
-        score.text = "Score: " + scoreNumber;
-        Debug.Log("Downgrade");
+        if (!shield)
+        {
+            downgrade.Play();
+            paddle.GetComponent<Paddle>().Shrink();
+            scoreNumber = scoreNumber - 10;
+            score.text = "Score: " + scoreNumber;
+            //Debug.Log("Downgrade");
+        }
     }
 
 
@@ -161,7 +181,7 @@ public class GM : MonoBehaviour
             partNumber = totalParts;
             parts.text = "Parts: " + partNumber + "/" + totalParts;
             win.Play();
-            Debug.Log("Win");
+            //Debug.Log("Win");
         }
     }
 
@@ -190,7 +210,10 @@ public class GM : MonoBehaviour
 
     void GameOver()
     {
+        mainOverlay.SetActive(false);
+        overParts.text = parts.text;
+        overPoints.text = score.text;
+        gameover.SetActive(true);
         health.GetComponent<Image>().sprite = healthZed;
-        dead.Play();
     }
 }

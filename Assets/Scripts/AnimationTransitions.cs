@@ -24,6 +24,12 @@ public class AnimationTransitions : MonoBehaviour
     AudioSource badFeeling;
 
     [SerializeField]
+    AudioSource fatLady;
+
+    [SerializeField]
+    AudioSource fatLadysing;
+
+    [SerializeField]
     AudioSource creation;
 
     [SerializeField]
@@ -40,7 +46,7 @@ public class AnimationTransitions : MonoBehaviour
     {
         boop.Play();
         StartCoroutine(WaitForAudio(boop));
-        Debug.Log("Back to menu.");
+        //Debug.Log("Back to menu.");
         // Use this to load whatever scene the title screen is on.
         SceneManager.LoadScene("Title Menu");
     }
@@ -55,7 +61,7 @@ public class AnimationTransitions : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Quits");
+        //Debug.Log("Quits");
         quit.Play();
         StartCoroutine(WaitForAudio(quit));
         Application.Quit();
@@ -65,7 +71,7 @@ public class AnimationTransitions : MonoBehaviour
     {
         start.Play();
         StartCoroutine(WaitForAudio(start));
-        Debug.Log("Play");
+        //Debug.Log("Play");
         fade.SetActive(true);
     }
 
@@ -107,6 +113,21 @@ public class AnimationTransitions : MonoBehaviour
     public void Monster()
     {
         monster.Play();
+    }
+
+    public void FatLady()
+    {
+        fatLady.Play();
+    }
+
+    public void Sing()
+    {
+        fatLadysing.Play();
+    }
+
+    public void FatLadyGo()
+    {
+        gameObject.GetComponent<Animator>().SetBool("FatLadySing", true);
     }
 
     public void MonsterTime()
