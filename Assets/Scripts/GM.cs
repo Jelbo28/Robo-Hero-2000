@@ -5,6 +5,10 @@ using UnityEngine.UI;
 public class GM : MonoBehaviour
 {
     #region Variables
+
+    [SerializeField]
+    Animator damageAnim;
+
     [SerializeField]
     AudioSource damage;
 
@@ -108,6 +112,7 @@ public class GM : MonoBehaviour
         {
             healthNumber = 0;
         }
+        damageAnim.SetBool("Hit", true);
         HealthUpdate();
     }
 

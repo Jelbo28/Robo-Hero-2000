@@ -23,26 +23,31 @@ public class Pickup : MonoBehaviour
             {
                 case ("Part"):
                     GM.instance.PartGet();
+                    Destroy(gameObject);
                     break;
                 case ("Health"):
                     GM.instance.HealthGet();
+                    Destroy(gameObject);
                     break;
                 case ("Damage"):
                     GM.instance.Damage(damageValue);
+                    Destroy(gameObject, 0.1f);
                     break;
                 case ("Point"):
                     GM.instance.PointGet(pointAddition);
+                    Destroy(gameObject);
                     break;
                 case ("Upgrade"):
                     GM.instance.Upgrade();
+                    Destroy(gameObject);
                     break;
                 case ("Downgrade"):
                     GM.instance.Downgrade();
+                    Destroy(gameObject);
                     break;
                 default:
                     break;
             }
-            Destroy(gameObject, 0f);
         }
     }
 }
