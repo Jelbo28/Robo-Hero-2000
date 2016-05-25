@@ -7,10 +7,16 @@ public class GM : MonoBehaviour
     #region Variables
 
     [SerializeField]
+    GameObject shieldObject;
+
+    [SerializeField]
     Animator damageAnim;
 
     [SerializeField]
     AudioSource damage;
+
+    [SerializeField]
+    AudioSource healthSound;
 
     [SerializeField]
     AudioSource win;
@@ -60,6 +66,7 @@ public class GM : MonoBehaviour
     int totalParts = 15;
 
     float randomPitch;
+    bool shield = false;
 
     public static GM instance = null;
     #endregion
@@ -89,6 +96,7 @@ public class GM : MonoBehaviour
 
     public void HealthGet()
     {
+        healthSound.Play();
         healthNumber++;
         if (healthNumber >= 3)
         {
@@ -103,17 +111,23 @@ public class GM : MonoBehaviour
 
     public void Damage(int damageValue)
     {
-        healthNumber = healthNumber - damageValue;
-        if (healthNumber >= 3)
+        if (!shield)
         {
-            healthNumber = 3;
+            damage.Play();
+            healthNumber = healthNumber - damageValue;
+            if (healthNumber >= 3)
+            {
+                healthNumber = 3;
+            }
+            if (healthNumber <= 0)
+            {
+                healthNumber = 0;
+            }
+            damageAnim.SetBool("Hit", true);
+            HealthUpdate();
         }
-        if (healthNumber <= 0)
-        {
-            healthNumber = 0;
-        }
-        damageAnim.SetBool("Hit", true);
-        HealthUpdate();
+        shieldObject.SetActive(false);
+        shield = false;
     }
 
     public void Upgrade()
@@ -123,6 +137,12 @@ public class GM : MonoBehaviour
         scoreNumber = scoreNumber + 10;
         score.text = "Score: " + scoreNumber;
         Debug.Log("Upgrade");
+    }
+
+    public void Shield()
+    {
+        shield = true;
+        shieldObject.SetActive(true);
     }
 
     public void Downgrade()
@@ -151,23 +171,19 @@ public class GM : MonoBehaviour
         {
             case (0):
                 //damage.pitch = 1.2f;
-                damage.Play();
                 GameOver();
                 break;
             case (1):
                 health.GetComponent<Image>().sprite = healthOne;
                 //damage.pitch =  0.9f;
-                damage.Play();
                 break;
             case (2):
                 health.GetComponent<Image>().sprite = healthTwo;
                 //damage.pitch = 1.1f;
-                damage.Play();
                 break;
             case (3):
                 health.GetComponent<Image>().sprite = healthFull;
                 //damage.pitch = 1f;
-                damage.Play();
                 break;
         }       
     }

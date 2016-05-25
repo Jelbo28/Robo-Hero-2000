@@ -45,6 +45,10 @@ public class Pickup : MonoBehaviour
                     GM.instance.Downgrade();
                     Destroy(gameObject);
                     break;
+                case ("Shield"):
+                    GM.instance.Shield();
+                    Destroy(gameObject);
+                    break;
                 default:
                     break;
             }
