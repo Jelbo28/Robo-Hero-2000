@@ -5,28 +5,37 @@ public class PartActions : MonoBehaviour {
 
     // public variables
 
-    public Collider2D box;
+    
 
     // private variables
 
+    //Collider2D box;
     PartsSpawn manager;
 
     // private methods
 
     void Awake()
     {
-        manager = GameObject.Find("PartsManager").GetComponent<PartsSpawn>();
-        box = gameObject.GetComponent<Collider2D>();
-        box.enabled = false;
+        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PartsSpawn>();
+        //box = gameObject.GetComponent<Collider2D>();
+        //box.enabled = false;
     }
 
-    void OnCollisionEnter2D (Collision2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Ground")
+        if (other.tag == "Enemy")
         {
-            manager.count--;
-            Destroy(gameObject, 1.0f);
+            //box.enabled = true;
         }
     }
+
+    //void OnCollisionEnter2D (Collision2D other)
+    //{
+    //    if (other.gameObject.tag == "Ground")
+    //    {
+    //       manager.count--;
+    //       Destroy(gameObject, 1.0f);
+    //    }
+    //}
 
 }

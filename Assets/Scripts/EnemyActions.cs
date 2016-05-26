@@ -13,8 +13,7 @@ public class EnemyActions : MonoBehaviour {
 
     // private variables
 
-    GameObject parts;
-    PartActions box;
+    Animator m_Anim;
     Rigidbody2D m_Rb;
     Vector2 forward;
     Vector2 backwards;
@@ -23,6 +22,7 @@ public class EnemyActions : MonoBehaviour {
 
     void Awake()
     {
+        m_Anim = GetComponent<Animator>();
         m_Rb = GetComponent<Rigidbody2D>();
         forward = new Vector2(m_Speed, 0);
         backwards = new Vector2(-m_Speed, 0);
@@ -31,16 +31,16 @@ public class EnemyActions : MonoBehaviour {
 
     void FixedUpdate()
     {
-        parts = GameObject.FindGameObjectWithTag("Drop");
-        box = parts.GetComponent<PartActions>();
         
         if (yes)
         {          
-            m_Rb.velocity = forward;  
+            m_Rb.velocity = forward;
+            m_Anim.SetBool("Switch", false); 
         }
         else if (!yes)
         {
             m_Rb.velocity = backwards;
+            m_Anim.SetBool("Switch", true);
         }
     }  
 
@@ -49,14 +49,6 @@ public class EnemyActions : MonoBehaviour {
         if (other.gameObject.tag == "Border")
         {
             yes = !yes;
-        }
-    }
-
-    void OnTriggerExit2D (Collider2D other)
-    {
-        if (other.tag == "Drop")
-        {
-            box.box.enabled = true;
         }
     }
 

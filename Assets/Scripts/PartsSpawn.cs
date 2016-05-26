@@ -11,9 +11,11 @@ public class PartsSpawn : MonoBehaviour {
     // public variables
 
     public int count;
+    public bool achoo;
 
     // private variables
 
+    Animator monAnim;
     GameObject monster;
     EnemyActions direction;
     ConstantForce2D toss;
@@ -25,6 +27,8 @@ public class PartsSpawn : MonoBehaviour {
         monster = GameObject.Find("Monster");
         direction = monster.GetComponent<EnemyActions>();
         InvokeRepeating("Spawn", 1.0f, 2.0f);
+        achoo = false;
+        monAnim = monster.GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -41,23 +45,37 @@ public class PartsSpawn : MonoBehaviour {
 
         if (direction.yes)
         {
-            toss.relativeForce = new Vector2(- m_ForceX, 0);
+            Fall(m_ForceX);
         }
         else if (!direction.yes)
         {
-            toss.relativeForce = new Vector2(m_ForceX, 0);
+            Fall(-m_ForceX);
         }
+
     }
 
     void Spawn()
     {
         int i = Random.Range(0, parts.Length - 1);
-        Debug.Log(i);
 
         GameObject part = parts[i];
 
-        Instantiate(part, monster.transform.position, monster.transform.rotation);
+        Instantiate(part, monster.transform.position + new Vector3 (0f, -2f, 0f), new Quaternion (0f, 0f, 0f, 0f));
         count++;
     }
 
+    void Fall (float x)
+    {
+        toss.relativeForce = new Vector2(x, 0);
+        StartCoroutine(AttackAnim());
+    }
+
+    // IEnumerators
+
+    IEnumerator AttackAnim()
+    {
+        monAnim.SetBool("Throw", true);
+        yield return new WaitForSeconds(3.0f);
+        monAnim.SetBool("Throw", false);
+    }
 }

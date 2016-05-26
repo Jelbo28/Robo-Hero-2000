@@ -16,6 +16,9 @@ public class GM : MonoBehaviour
     GameObject gameover;
 
     [SerializeField]
+    GameObject win;
+
+    [SerializeField]
     GameObject mainOverlay;
 
     [SerializeField]
@@ -23,6 +26,12 @@ public class GM : MonoBehaviour
 
     [SerializeField]
     Animator damageAnim;
+
+    [SerializeField]
+    AudioSource shieldDown;
+
+    [SerializeField]
+    AudioSource shieldUp;
 
     [SerializeField]
     AudioSource damage;
@@ -35,9 +44,6 @@ public class GM : MonoBehaviour
 
     [SerializeField]
     AudioSource healthSound;
-
-    [SerializeField]
-    AudioSource win;
 
     [SerializeField]
     AudioSource partGet;
@@ -141,8 +147,10 @@ public class GM : MonoBehaviour
             damageAnim.SetBool("Hit", true);
             HealthUpdate();
         }
-        shieldObject.SetActive(false);
-        shield = false;
+        if (shield)
+        {
+            ShieldDisable();
+        }
     }
 
     public void Upgrade()
@@ -157,8 +165,7 @@ public class GM : MonoBehaviour
 
     public void Shield()
     {
-        shield = true;
-        shieldObject.SetActive(true);
+        ShieldEnable();
     }
 
     public void Downgrade()
@@ -171,6 +178,10 @@ public class GM : MonoBehaviour
             score.text = "Score: " + scoreNumber;
             //Debug.Log("Downgrade");
         }
+        if (shield)
+        {
+            ShieldDisable();
+        }
     }
 
 
@@ -180,7 +191,7 @@ public class GM : MonoBehaviour
         {
             partNumber = totalParts;
             parts.text = "Parts: " + partNumber + "/" + totalParts;
-            win.Play();
+            Win();
             //Debug.Log("Win");
         }
     }
@@ -208,6 +219,20 @@ public class GM : MonoBehaviour
         }       
     }
 
+    void ShieldEnable()
+    {
+        shieldUp.Play();
+        shield = true;
+        shieldObject.SetActive(true);
+    }
+
+    void ShieldDisable()
+    {
+        shieldDown.Play();
+        shieldObject.SetActive(false);
+        shield = false;
+    }
+
     void GameOver()
     {
         mainOverlay.SetActive(false);
@@ -215,5 +240,13 @@ public class GM : MonoBehaviour
         overPoints.text = score.text;
         gameover.SetActive(true);
         health.GetComponent<Image>().sprite = healthZed;
+    }
+
+    void Win()
+    {
+        mainOverlay.SetActive(false);
+        overParts.text = parts.text;
+        overPoints.text = score.text;
+        win.SetActive(true);
     }
 }

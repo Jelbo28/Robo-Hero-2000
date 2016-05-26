@@ -120,6 +120,7 @@ public class AnimationTransitions : MonoBehaviour
         fatLady.Play();
     }
 
+
     public void Sing()
     {
         fatLadysing.Play();
