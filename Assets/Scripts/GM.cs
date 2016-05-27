@@ -7,6 +7,9 @@ public class GM : MonoBehaviour
     #region Variables
 
     [SerializeField]
+    GameObject movingParts;
+
+    [SerializeField]
     Text overParts;
 
     [SerializeField]
@@ -106,6 +109,7 @@ public class GM : MonoBehaviour
         partGet.Play();
         partNumber++;
         parts.text = "Parts: " + partNumber + "/" + totalParts;
+        overParts.text = "Parts: " + partNumber + "/" + totalParts;
         CheckWin();
     }
 
@@ -113,6 +117,7 @@ public class GM : MonoBehaviour
     {
         scoreNumber = scoreNumber + pointAddition;
         score.text = "Score: " + scoreNumber;
+        overPoints.text = "Score: " + scoreNumber;
     }
 
     public void HealthGet()
@@ -191,6 +196,7 @@ public class GM : MonoBehaviour
         {
             partNumber = totalParts;
             parts.text = "Parts: " + partNumber + "/" + totalParts;
+            overParts.text = "Parts: " + partNumber + "/" + totalParts;
             Win();
             //Debug.Log("Win");
         }
@@ -202,6 +208,8 @@ public class GM : MonoBehaviour
         {
             case (0):
                 //damage.pitch = 1.2f;
+                overParts.text = parts.text;
+                overPoints.text = score.text;
                 GameOver();
                 break;
             case (1):
@@ -235,18 +243,21 @@ public class GM : MonoBehaviour
 
     void GameOver()
     {
-        mainOverlay.SetActive(false);
-        overParts.text = parts.text;
-        overPoints.text = score.text;
+        Stop();
         gameover.SetActive(true);
         health.GetComponent<Image>().sprite = healthZed;
+        mainOverlay.SetActive(false);
     }
 
     void Win()
     {
-        mainOverlay.SetActive(false);
-        overParts.text = parts.text;
-        overPoints.text = score.text;
+        Stop();
         win.SetActive(true);
+        mainOverlay.SetActive(false);
+    }
+
+    void Stop()
+    {
+        movingParts.SetActive(false);
     }
 }

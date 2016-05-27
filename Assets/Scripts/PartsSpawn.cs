@@ -74,7 +74,7 @@ public class PartsSpawn : MonoBehaviour {
 
     IEnumerator AttackAnim()
     {
-        monAnim.SetBool("Throw", true);
+        monAnim.SetTrigger("ThrowGo");
         yield return new WaitForSeconds(3.0f);
         monAnim.SetBool("Throw", false);
     }

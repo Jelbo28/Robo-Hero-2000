@@ -3,8 +3,15 @@ using System.Collections;
 
 public class ObjectDestroy : MonoBehaviour
 {
-	void Awake()
+    #region Variables
+
+    [SerializeField]
+    GameObject monster;
+    #endregion
+
+    void Awake()
     {
+        monster.GetComponent<DropInstantiation>().count--;
         Destroy(gameObject, 5f);
     }
 }
