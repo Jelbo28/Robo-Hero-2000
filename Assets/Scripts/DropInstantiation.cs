@@ -25,9 +25,6 @@ public class DropInstantiation : MonoBehaviour
     [SerializeField]
     GameObject spawnPoint;
 
-    
-    public int count = 0;
-
     float randNum;
     int randPart;
     int randPoint;
@@ -42,30 +39,21 @@ public class DropInstantiation : MonoBehaviour
 
     void Awake()
     {
-        InvokeRepeating("Spawn", 1.0f, 2.0f);
+        InvokeRepeating("Spawn", 1.0f, 3.5f);
     }
-
-    void FixedUpdate()
-    {
-        if (count > 5)
-        {
-            CancelInvoke();
-        }
-    }
-
 
     void Spawn()
     {
-        count++;
+        gameObject.GetComponent<AudioSource>().Play();
         randNum = Random.Range(0f, 101f);
         if ((randNum >= 0) && (randNum <= 30))
         {
-            randPart = Random.Range(0, 18);
+            randPart = Random.Range(0, parts.Length);
             Instantiate(parts[randPart], spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
         else if ((randNum >= 31) && (randNum <= 40))
         {
-            randPoint = Random.Range(0, 1);
+            randPoint = Random.Range(0, points.Length);
             Instantiate(points[randPoint], spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
         else if ((randNum >= 41) && (randNum <= 50))
@@ -83,11 +71,11 @@ public class DropInstantiation : MonoBehaviour
         else if ((randNum >= 71) && (randNum <= 95))
         {
             randDamage = Random.Range(0, 101);
-            if (randDamage >= 95)
+            if (randDamage <= 95)
             {
                 chosenValue = 0;
             }
-            else if (randDamage <= 95)
+            else if (randDamage >= 95)
             {
                 chosenValue = 1;
             }
@@ -98,12 +86,5 @@ public class DropInstantiation : MonoBehaviour
             Instantiate(shield, spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
         monsterAnim.SetTrigger("ThrowGo");
-    }
-
-
-    IEnumerator Wait(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
-        Spawn();
     }
 }

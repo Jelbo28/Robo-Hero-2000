@@ -25,37 +25,37 @@ public class Pickup : MonoBehaviour
             {
                 case ("Part"):
                     GM.instance.PartGet();
-                    monster.GetComponent<DropInstantiation>().count--;
+                    GM.instance.PointGet(pointAddition);
                     Destroy(gameObject);
                     break;
                 case ("Health"):
                     GM.instance.HealthGet();
-                    monster.GetComponent<DropInstantiation>().count--;
+                    GM.instance.PointGet(pointAddition);
                     Destroy(gameObject);
                     break;
                 case ("Damage"):
                     GM.instance.Damage(damageValue);
-                    monster.GetComponent<DropInstantiation>().count--;
+                    GM.instance.PointGet(pointAddition);
                     Destroy(gameObject, 0.1f);
                     break;
                 case ("Point"):
+                    gameObject.GetComponent<AudioSource>().Play();
                     GM.instance.PointGet(pointAddition);
-                    monster.GetComponent<DropInstantiation>().count--;
                     Destroy(gameObject);
                     break;
                 case ("Upgrade"):
                     GM.instance.Upgrade();
-                    monster.GetComponent<DropInstantiation>().count--;
+                    GM.instance.PointGet(pointAddition);
                     Destroy(gameObject);
                     break;
                 case ("Downgrade"):
                     GM.instance.Downgrade();
-                    monster.GetComponent<DropInstantiation>().count--;
+                    GM.instance.PointGet(pointAddition);
                     Destroy(gameObject);
                     break;
                 case ("Shield"):
                     GM.instance.Shield();
-                    monster.GetComponent<DropInstantiation>().count--;
+                    GM.instance.PointGet(pointAddition);
                     Destroy(gameObject);
                     break;
                 default:

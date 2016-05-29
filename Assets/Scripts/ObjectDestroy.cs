@@ -11,7 +11,6 @@ public class ObjectDestroy : MonoBehaviour
 
     void Awake()
     {
-        monster.GetComponent<DropInstantiation>().count--;
         Destroy(gameObject, 5f);
     }
 }

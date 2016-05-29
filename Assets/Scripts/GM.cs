@@ -16,6 +16,9 @@ public class GM : MonoBehaviour
     Text overPoints;
 
     [SerializeField]
+    Text overPoints2;
+
+    [SerializeField]
     GameObject gameover;
 
     [SerializeField]
@@ -118,6 +121,7 @@ public class GM : MonoBehaviour
         scoreNumber = scoreNumber + pointAddition;
         score.text = "Score: " + scoreNumber;
         overPoints.text = "Score: " + scoreNumber;
+        overPoints2.text = "Score: " + scoreNumber;
     }
 
     public void HealthGet()
