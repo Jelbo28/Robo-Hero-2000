@@ -7,6 +7,9 @@ public class GM : MonoBehaviour
     #region Variables
 
     [SerializeField]
+    GameObject monster;
+
+    [SerializeField]
     GameObject movingParts;
 
     [SerializeField]
@@ -252,6 +255,7 @@ public class GM : MonoBehaviour
 
     void GameOver()
     {
+        monster.GetComponent<DropInstantiation>().CancelInvoke();
         health.GetComponent<Image>().sprite = healthZed;
         mainOverlay.SetActive(false);
         gameover.SetActive(true);
@@ -260,6 +264,7 @@ public class GM : MonoBehaviour
 
     void Win()
     {
+        monster.GetComponent<DropInstantiation>().CancelInvoke();
         mainOverlay.SetActive(false);
         win.SetActive(true);
         Stop();
