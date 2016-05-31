@@ -255,18 +255,18 @@ public class GM : MonoBehaviour
 
     void GameOver()
     {
-        monster.GetComponent<DropInstantiation>().CancelInvoke();
         health.GetComponent<Image>().sprite = healthZed;
         mainOverlay.SetActive(false);
         gameover.SetActive(true);
+        monster.GetComponent<DropInstantiation>().CancelInvoke();
         Stop();
     }
 
     void Win()
     {
-        monster.GetComponent<DropInstantiation>().CancelInvoke();
         mainOverlay.SetActive(false);
         win.SetActive(true);
+        monster.GetComponent<DropInstantiation>().CancelInvoke();
         Stop();
     }
 
