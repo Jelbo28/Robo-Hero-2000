@@ -5,6 +5,9 @@ public class DropInstantiation : MonoBehaviour
 {
     #region Variables
     [SerializeField]
+    GameObject GM;
+
+    [SerializeField]
     GameObject[] parts;
     [SerializeField]
     GameObject[] points;
@@ -30,16 +33,11 @@ public class DropInstantiation : MonoBehaviour
     int randPoint;
     int randDamage;
     int chosenValue;
-
-
-
-
     #endregion
-
 
     void Awake()
     {
-        InvokeRepeating("Spawn", 1.0f, 3.5f);
+        InvokeRepeating("Spawn", 1.0f, 2f);
     }
 
     void Spawn()
@@ -51,24 +49,42 @@ public class DropInstantiation : MonoBehaviour
             randPart = Random.Range(0, parts.Length);
             Instantiate(parts[randPart], spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
-        else if ((randNum >= 31) && (randNum <= 40))
+        else if ((randNum >= 31) && (randNum <= 45))
         {
             randPoint = Random.Range(0, points.Length);
             Instantiate(points[randPoint], spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
-        else if ((randNum >= 41) && (randNum <= 50))
+        else if ((randNum >= 46) && (randNum <= 50))
         {
             Instantiate(powerUp, spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
-        else if ((randNum >= 51) && (randNum <= 60))
+        if ((randNum >= 51) && (randNum <= 60))
         {
             Instantiate(powerDown, spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
         else if ((randNum >= 61) && (randNum <= 70))
         {
-            Instantiate(health, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            if (GM.GetComponent<GM>().healthyBot == false)
+            {
+                Instantiate(health, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            }
+            else
+            {
+                Instantiate(damage[0], spawnPoint.transform.position, spawnPoint.transform.rotation);
+            }
         }
-        else if ((randNum >= 71) && (randNum <= 95))
+        if ((randNum >= 71) && (randNum <= 80))
+        {
+            if (GM.GetComponent<GM>().shield == false)
+            {
+                Instantiate(shield, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            }
+            else
+            {
+                Instantiate(damage[0], spawnPoint.transform.position, spawnPoint.transform.rotation);
+            }
+        }
+        else if ((randNum >= 81) && (randNum <= 101))
         {
             randDamage = Random.Range(0, 101);
             if (randDamage <= 95)
@@ -80,10 +96,6 @@ public class DropInstantiation : MonoBehaviour
                 chosenValue = 1;
             }
             Instantiate(damage[chosenValue], spawnPoint.transform.position, spawnPoint.transform.rotation);
-        }
-        else if ((randNum >= 96) && (randNum <= 101))
-        {
-            Instantiate(shield, spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
         monsterAnim.SetTrigger("ThrowGo");
     }

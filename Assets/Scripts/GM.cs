@@ -93,7 +93,8 @@ public class GM : MonoBehaviour
     int totalParts = 15;
 
     float randomPitch;
-    bool shield = false;
+    public bool shield = false;
+    public bool healthyBot = true;
 
     public static GM instance = null;
     #endregion
@@ -214,18 +215,22 @@ public class GM : MonoBehaviour
                 //damage.pitch = 1.2f;
                 overParts.text = parts.text;
                 overPoints.text = score.text;
+                healthyBot = false;
                 GameOver();
                 break;
             case (1):
                 health.GetComponent<Image>().sprite = healthOne;
+                healthyBot = false;
                 //damage.pitch =  0.9f;
                 break;
             case (2):
                 health.GetComponent<Image>().sprite = healthTwo;
+                healthyBot = false;
                 //damage.pitch = 1.1f;
                 break;
             case (3):
                 health.GetComponent<Image>().sprite = healthFull;
+                healthyBot = true;
                 //damage.pitch = 1f;
                 break;
         }       
@@ -247,17 +252,17 @@ public class GM : MonoBehaviour
 
     void GameOver()
     {
-        Stop();
-        gameover.SetActive(true);
         health.GetComponent<Image>().sprite = healthZed;
         mainOverlay.SetActive(false);
+        gameover.SetActive(true);
+        Stop();
     }
 
     void Win()
     {
-        Stop();
-        win.SetActive(true);
         mainOverlay.SetActive(false);
+        win.SetActive(true);
+        Stop();
     }
 
     void Stop()
